@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows7.0</TargetFramework>
+    <UseWPF>True</UseWPF>
+    <AssemblyName>CSCPSLauncher</AssemblyName>
+    <RootNamespace>CSCPSLauncher</RootNamespace>
+    <Authors>NerverLess</Authors>
+    <SignAssembly>true</SignAssembly>
+    <Version>2.0</Version>
+    <Description>NeverLess/NeverLess JPN/NeverLess US in use</Description>
+    <Copyright>Copyright© 2020-2021 NeverLess All rights reserved.</Copyright>
+    <PackageProjectUrl>https://discord.gg/pEZNFUvZ4r</PackageProjectUrl>
+    <DelaySign>true</DelaySign>
+    <StartupObject>CSNPS.App</StartupObject>
+    <ApplicationIcon>cso.ico</ApplicationIcon>
+    <AnalysisLevel>5.0</AnalysisLevel>
+    <PackageReleaseNotes>5.0</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="1280px-Valve_logo.svg.png" />
+    <None Remove="128_20211006020331.jpg" />
+    <None Remove="128_20211103012701.jpg" />
+    <None Remove="2013.png" />
+    <None Remove="2022_0128_2_1440x900.jpg" />
+    <None Remove="backgroud.png" />
+    <None Remove="background.png" />
+    <None Remove="bisecthosting.png" />
+    <None Remove="bk.jpg" />
+    <None Remove="button1.png" />
+    <None Remove="button2.png" />
+    <None Remove="csnps.png" />
+    <None Remove="csns.png" />
+    <None Remove="csns2.png" />
+    <None Remove="csns_jpn.png" />
+    <None Remove="CSS.png" />
+    <None Remove="dc.png" />
+    <None Remove="deSource.png" />
+    <None Remove="exitgame.png" />
+    <None Remove="exitgame_tw.png" />
+    <None Remove="fb.png" />
+    <None Remove="gamestart.png" />
+    <None Remove="hwid_backgroud.png" />
+    <None Remove="nClassic.png" />
+    <None Remove="NerverLess_JPN_write.png" />
+    <None Remove="NerverLess_write.png" />
+    <None Remove="nexon-quality.gif" />
+    <None Remove="paypal.png" />
+    <None Remove="Q1NZ8lW.png" />
+    <None Remove="sgp2012.png" />
+    <None Remove="startgame.png" />
+    <None Remove="startgame_tw.png" />
+    <None Remove="XeinDev.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="cso.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="1280px-Valve_logo.svg.png" />
+    <Resource Include="128_20211006020331.jpg" />
+    <Resource Include="128_20211103012701.jpg" />
+    <Resource Include="2013.png" />
+    <Resource Include="2022_0128_2_1440x900.jpg" />
+    <Resource Include="bisecthosting.png" />
+    <Resource Include="bk.jpg" />
+    <Resource Include="csnps.png" />
+    <Resource Include="csns.png" />
+    <Resource Include="csns2.png" />
+    <Resource Include="csns_jpn.png" />
+    <Resource Include="dc.png" />
+    <Resource Include="exitgame.png" />
+    <Resource Include="exitgame_tw.png" />
+    <Resource Include="fb.png" />
+    <Resource Include="hwid_backgroud.png" />
+    <Resource Include="nexon-quality.gif" />
+    <Resource Include="startgame.png" />
+    <Resource Include="startgame_tw.png" />
+  </ItemGroup>
+
+</Project>
