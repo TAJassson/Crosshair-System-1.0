@@ -4,7 +4,6 @@ using System.Windows;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Management;
 namespace CSNPS
 {
     /// <summary>
@@ -26,70 +25,65 @@ namespace CSNPS
             //JPN
             //File Check_hwid and updater.exe
             msg.Text = "正在讀取hwid資料並進行驗證";
+            if (File.Exists("userhwid.txt"))
+            {
+                File.Delete("hwidban.txt");
+                File.Decrypt("userhwid.txt");
+                File.Decrypt("clientip.txt");
+            }
+            Task.Delay(1000);
+            Thread.Sleep(1000);
+            Process.Start("hwid.exe");
             Task.Delay(1000);
             Thread.Sleep(1000);
             //download file
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            WebClient downloadverison = new WebClient();
-            downloadverison.DownloadFile("https://drive.google.com/uc?export=download&id=1AfoTJ3AsG36_a52O0Hr-X0fiaYPt4hkt", "sg14version.txt");
-            Task.Delay(1000);
-            Thread.Sleep(1000);
             WebClient webcom = new WebClient();
-            string comparetxt = "https://drive.google.com/uc?export=download&id=12pCIm5H1pVj8YTCvE23FBkGmBiJUdUsx"; //hwid_compare.txt
+            string comparetxt = "https://drive.google.com/uc?export=download&id=12pCIm5H1pVj8YTCvE23FBkGmBiJUdUsx"; //hwidban.txt
             webcom.DownloadFile(comparetxt, "hwidban.txt");
             /*
-            WebClient webcom = new WebClient();
-            string comparetxt = "https://drive.google.com/uc?export=download&id=1eAZgKtbPc4SA69mPm8Ed-wusSGectWZY"; //hwid_compare.txt
-            webcom.DownloadFile(comparetxt, "hwid_compare.txt");
-            */
+                  WebClient webcom = new WebClient();
+                string comparetxt = "https://drive.google.com/uc?export=download&id=1eAZgKtbPc4SA69mPm8Ed-wusSGectWZY"; //hwid_compare.txt
+                webcom.DownloadFile(comparetxt, "hwid_compare.txt");
+                */
+            Task.Delay(1000);
+            Thread.Sleep(1000);
             //download file
             string[] bannedhwid = File.ReadAllLines("hwidban.txt"); //server
             //  string[] serverip = File.ReadAllLines("ipban.txt"); //server
             string[] userhwid = File.ReadAllLines("userhwid.txt"); //client
-            // string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //special string, only can use on special event or beta client
-            Task.Delay(1000);
-            Thread.Sleep(1000);
+            // string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //PaymentServer_FileReadHeader
             //readfile
 
             foreach (string client in userhwid)
             {
                 foreach (string compare in bannedhwid)
                 {
+                    if (client.Contains("DESKTOP-8801E42") || client.Contains("AGI512G16AI198  0100_0000_0000_0000. "))
+                    {
+                        MainWindow mainWindow1 = new MainWindow();
+                        mainWindow1.Show();
+                        this.Hide();
+                        File.Delete("hwidban.txt");
+                        File.Decrypt("userhwid.txt");
+                        File.Decrypt("clientip.txt");
+                    }
+                     else
+                    {
+
+                    }
                     string hv = "Hyper-V";
                     string VM = "VMware";
                     if (client.Contains(compare))
                     {
                         msg.Text = "FailCompare";
                         MessageBox.Show("你因違反NeverLess遊戲伺服器規則而被管理員hwid封鎖,詳情請參讀NeverLess伺服器規則或在Discord開啟一個ticket並提供你的hwid (位於遊戲文件Bin內的userhwid.txt)", "hwid.exe");
-                        File.Delete("hwid_compare.txt"); //hwid_compare.txt
                         File.Delete("hwidban.txt");
-                        File.Delete("sg14version.txt");
                         Close();
                         return;
                     }
                     else
                     {
-                        /*    string manage = "SELECT * From Win32_NetworkAdapter";
-                           ManagementObjectSearcher searcher = new ManagementObjectSearcher(manage);
-                           ManagementObjectCollection collection = searcher.Get();
-                           foreach (ManagementObject obj in collection)
-                           {
-                               /*if (obj["Name"].ToString() != null)
-                               {
-                                   MessageBox.Show("Windows_WMIC_Error_System.Management_missing_nic_network_adapter!");
-                              
-                        if (obj["Name"].ToString() == VM)
-                                {
-                                    MessageBox.Show("hwid.exe已檢測到你已經安裝或你正在運作虛擬機器在你的電腦上,根據NeverLess遊戲伺服器規則內已列明玩家不能使用Hyper-V或VMware的虛擬機器,詳情請參讀NeverLess伺服器規則!", "hwid.exe");
-                                    Close();
-                                }
-                                else if (obj["Name"].ToString() == hv)
-                                {
-                                    MessageBox.Show("hwid.exe已檢測到你已經安裝或你正在運作虛擬機器在你的電腦上,根據NeverLess遊戲伺服器規則內已列明玩家不能使用Hyper-V或VMware的虛擬機器,詳情請參讀NeverLess伺服器規則!", "hwid.exe");
-                                    Close();
-                                }
-                        }
-                         */
                         if (client.Contains(hv) || client.Contains(VM))
                         {
                             msg.Text = "detectVMorHyperVnetwork";
@@ -102,122 +96,17 @@ namespace CSNPS
 
                         }
                     }
+                        
                 }
             }
-                Task.Delay(1000);
-                Thread.Sleep(1000);
-                 if (File.Exists("version.txt"))
-                  {
-                       MessageBox.Show("FileExists_version.txt");
-                  }
-                        else
-                        {
-                            MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-                            Process.Start("Updater.exe");
-                            Close();
-                        }
-                        if (File.Exists("pingscan.exe"))
-                        {
-                            Process.Start("pingscan.exe");
-                        }
-                        else
-                        {
-                            string[] clientv = File.ReadAllLines("version.txt");
-                            string[] sv = File.ReadAllLines("sg14version.txt");
-                foreach (string cv in clientv)
-                {
-                    foreach (string serverv in sv)
-                    {
-                        if (cv == serverv)
-                        {
-                            msg.Text = $"你的遊戲版本是 v.'{cv}', 最新版本為 v.'{serverv}'.可以開始遊戲";
-                            MainWindow launcherwindow = new MainWindow();
-                            launcherwindow.Show();
-                            this.Close();
-                            return;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Update_request");
-                            MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-                            msg.Text = "即將更新client,切勿關閉Update的CMD視窗並等到完成更新";
-                            Process.Start("Updater.exe");
-                            File.Delete("userhwid.txt");
-                            File.Delete("ipban.txt");
-                            File.Delete("hwidban.txt");
-                            Close();
-                        }
-                    }
-                }
-            }
-        }
-        }
-    }
-
-/*
-else
-{
-   if (client == hv || client == VM)
-    {
-        msg.Text = "FailCompare";
-        MessageBox.Show("hwid.exe因檢測到你的虛擬機器在運行,詳情請參讀NeverLess伺服器規則或在Discord開啟一個ticket並提供你的hwid (位於遊戲文件Bin內的userhwid.txt)", "hwid.exe");
-        File.Delete("hwid_compare.txt"); //hwid_compare.txt
-        File.Delete("hwidban.txt");
-        File.Delete("sg14version.txt");
-        Close();
-    }
-    else
-    {
-        Task.Delay(1000);
-        Thread.Sleep(1000);
-        if (File.Exists("version.txt"))
-        {
-            MessageBox.Show("FileExists_version.txt");
-        }
-        else
-        {
-            MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-            Process.Start("Updater.exe");
-            Close();
-        }
-        if (File.Exists("pingscan.exe"))
-        {
-            MessageBox.Show("伺服器訊息: 因伺服器檢測到你的異常行為並需要進行區域網掃瞄,請按下'OK'來進行pingscan.*區域網掃瞄需時3-4分鐘,期間CPU或可能提高使用量並切勿關閉pingscan畫面* ", "NL_ServerRequest_Networkscan_hwid.exe", MessageBoxButton.OK);
-            Process.Start("pingscan.exe");
-        }
-        string[] clientv = File.ReadAllLines("version.txt");
-        string[] sv = File.ReadAllLines("sg14version.txt");
-        foreach (string cv in clientv)
-        {
-            foreach (string serverv in sv)
-            {
-                if (cv == serverv)
-                {
-                    msg.Text = $"你的遊戲版本是 v.'{cv}', 最新版本為 v.'{serverv}'.可以開始遊戲";
-                    MainWindow launcherwindow = new MainWindow();
-                    launcherwindow.Show();
-                    this.Close();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Update_request");
-                    MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-                    msg.Text = "即將更新client,切勿關閉Update的CMD視窗並等到完成更新";
-                    Process.Start("Updater.exe");
-                    File.Delete("userhwid.txt");
-                    File.Delete("ipban.txt");
-                    File.Delete("hwidban.txt");
-                    Close();
-                }
-            }
+            //start launcher
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Hide();
+            File.Delete("hwidban.txt");
+            File.Decrypt("userhwid.txt");
+            File.Decrypt("clientip.txt");
         }
     }
 }
-}
-}
-}
-}
-}
-*/
 

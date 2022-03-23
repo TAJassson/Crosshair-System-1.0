@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows7.0</TargetFramework>
     <UseWPF>True</UseWPF>
-    <AssemblyName>CSCPSLauncher</AssemblyName>
+    <AssemblyName>CSNPSLauncher</AssemblyName>
     <RootNamespace>CSCPSLauncher</RootNamespace>
     <Authors>NerverLess</Authors>
     <SignAssembly>true</SignAssembly>
@@ -43,6 +43,7 @@
     <None Remove="fb.png" />
     <None Remove="gamestart.png" />
     <None Remove="hwid_backgroud.png" />
+    <None Remove="maxresdefault.jpg" />
     <None Remove="nClassic.png" />
     <None Remove="NerverLess_JPN_write.png" />
     <None Remove="NerverLess_write.png" />
@@ -52,6 +53,7 @@
     <None Remove="sgp2012.png" />
     <None Remove="startgame.png" />
     <None Remove="startgame_tw.png" />
+    <None Remove="unknown %285%29.png" />
     <None Remove="XeinDev.png" />
   </ItemGroup>
 
@@ -80,9 +82,11 @@
     <Resource Include="exitgame_tw.png" />
     <Resource Include="fb.png" />
     <Resource Include="hwid_backgroud.png" />
+    <Resource Include="maxresdefault.jpg" />
     <Resource Include="nexon-quality.gif" />
     <Resource Include="startgame.png" />
     <Resource Include="startgame_tw.png" />
+    <Resource Include="unknown (5).png" />
   </ItemGroup>
 
 </Project>

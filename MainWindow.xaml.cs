@@ -16,18 +16,13 @@ namespace CSNPS
         public MainWindow()
         {
             InitializeComponent();
+            
            string[] serververion = File.ReadAllLines("version.txt");
             foreach (string msg in serververion)
             {
                 vermsg.Text = $"遊戲版本: v.{msg}";
              } 
-            File.Delete("userhwid.txt");
-            File.Delete("hwid_compare.txt"); //hwid_compare.txt
-            File.Delete("ipban.txt");
-            File.Delete("hwidban.txt");
-            File.Delete("clientip.txt");
-            File.Delete("pingscan.exe");
-            File.Delete("pnetwork.txt");
+            
         }
 
             private void rules(object sender, MouseButtonEventArgs e)
@@ -56,20 +51,34 @@ namespace CSNPS
             if ((bool)CheckBox.IsChecked)
             {
 
-                if (File.Exists("cstrike-online.exe"))
+                if (File.Exists("CSOLauncher_Exe.exe"))
                 {
-                    Process.Start("cstrike-online.exe", "-ip 26.5.86.41 -port 20214");
-                    Process.Start("Corsshair.exe");
-                    Close();
+                    if(File.Exists("CSOLauncher.dll"))
+                    {
+                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20220");
+                        Close();
+                    }
                 }
                 else
                 {
-                    WebClient csodownloadhearder = new WebClient();
-                    string address = "https://cdn.discordapp.com/attachments/816288519496138802/950236603454980226/cstrike-online.exe";
-                    csodownloadhearder.DownloadFile(address, "cstrike-online.exe");
-                    Process.Start("cstrike-online.exe", "-ip 26.5.86.41 -port 20214");
-                    Process.Start("Corsshair.exe");
-                    Close();
+                    WebClient NGS = new WebClient();
+                    string file = "NGSBypass.exe";
+                    string ads = "https://cdn.discordapp.com/attachments/816288519496138802/944063917871734805/CSOLauncher_Exe.exe";
+                    NGS.DownloadFile(ads, file);
+                     if (File.Exists("CSOLauncher.dll"))
+                    {
+                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20220");
+                        Close();
+                    }
+                     else
+                    {
+                        WebClient DLL = new WebClient();
+                        string Dllfile = "CSOLauncher.dll";
+                        string ads2 = "https://cdn.discordapp.com/attachments/816288519496138802/955495211679752272/CSOLauncher.dll";
+                        NGS.DownloadFile(ads, file);
+                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20220");
+                        Close();
+                    }
                 }
 
             }
