@@ -13,10 +13,14 @@
         <ImageBrush ImageSource="/hwid_backgroud.png"/>
     </Window.Background>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/hwid_backgroud.png"/>
         </Grid.Background>
-        <TextBlock x:Name="msg" HorizontalAlignment="Center" Margin="0,141,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="430" Height="19" Foreground="White" FontSize="11"/>
+        <TextBlock x:Name="msg" HorizontalAlignment="Center" Margin="0,17,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="430" Height="19" Foreground="White" FontSize="11" Grid.Row="1"/>
 
     </Grid>
 </Window>

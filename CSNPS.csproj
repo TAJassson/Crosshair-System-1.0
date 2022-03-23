@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows7.0</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
     <UseWPF>True</UseWPF>
     <AssemblyName>CSCPSLauncher</AssemblyName>
     <RootNamespace>CSCPSLauncher</RootNamespace>
@@ -17,6 +17,7 @@
     <ApplicationIcon>cso.ico</ApplicationIcon>
     <AnalysisLevel>5.0</AnalysisLevel>
     <PackageReleaseNotes>5.0</PackageReleaseNotes>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
