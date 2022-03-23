@@ -38,7 +38,6 @@ namespace CSNPS
             //File Check_hwid and updater.exe
             Process.Start("hwid.exe");
             msg.Text = "正在讀取hwid資料並進行驗證";
-            MessageBox.Show("hw");
             Task.Delay(2500);
             Thread.Sleep(2500);
             //download file
@@ -63,7 +62,6 @@ namespace CSNPS
             Task.Delay(1000);
             Thread.Sleep(1000);
             //readfile
-            MessageBox.Show("hwidreader");
             foreach (string client in userhwid)
             {
                 foreach (string compare in bannedhwid)
