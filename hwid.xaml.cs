@@ -40,6 +40,7 @@ namespace CSNPS
             msg.Text = "正在讀取hwid資料並進行驗證";
             Task.Delay(2500);
             Thread.Sleep(2500);
+            //fuckyoucheckusers
             //download file
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             WebClient downloadverison = new WebClient();
