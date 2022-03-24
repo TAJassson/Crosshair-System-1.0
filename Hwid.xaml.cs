@@ -4,14 +4,15 @@ using System.Windows;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+
 namespace CSNPS
 {
     /// <summary>
     /// hwid.xaml 的互動邏輯
     /// </summary>
-    public partial class hwid : Window
+    public partial class Hwid : Window
     {
-        public hwid()
+        public Hwid()
         {
             InitializeComponent();
             this.Show();
