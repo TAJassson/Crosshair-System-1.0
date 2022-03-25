@@ -10,9 +10,9 @@ namespace CSNPS
     /// <summary>
     /// hwid.xaml 的互動邏輯
     /// </summary>
-    public partial class hwid : Window
+    public partial class Hwid : Window
     {
-        public hwid()
+        public Hwid()
         {
             InitializeComponent();
             msg.Text = "正在讀取hwid資料並進行驗證";
