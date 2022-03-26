@@ -47,16 +47,15 @@ namespace CSNPS
                 File.Delete("hwid_compare.txt");
                 File.Delete("userhwid.txt");
                 File.Delete("clientip.txt");
-                Process.Start("hwid.exe");
             }
             else
             {
 
             }
             hwidtxt.Text = "正在讀取hwid資料並進行驗證";
-            //File Check_hwid and updater.exe
-            Task.Delay(1500);
-            Thread.Sleep(1500);
+            Process.Start("hwid.exe");
+            Task.Delay(1000);
+            Thread.Sleep(1000);
             //download file
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             /*
@@ -64,10 +63,10 @@ namespace CSNPS
             string comparetxt = "https://drive.google.com/uc?export=download&id=12pCIm5H1pVj8YTCvE23FBkGmBiJUdUsx"; //hwidban.txt, normalserver_filereadheader
             webcom.DownloadFile(comparetxt, "hwidban.txt");
             */
-             // 1/4/22 2022Q2 inuse
-                  WebClient webcom = new WebClient();
-                string comparetxt = "https://drive.google.com/uc?export=download&id=1JP0fB65r0nj1pRXYVp7gf3PtRAzUUttI"; //hwid_compare.txt , PaymentServer_FileReadHeader
-                webcom.DownloadFile(comparetxt, "hwid_compare.txt");
+            // 1/4/22 2022Q2 inuse
+            WebClient webcom = new WebClient();
+            string comparetxt = "https://drive.google.com/uc?export=download&id=1JP0fB65r0nj1pRXYVp7gf3PtRAzUUttI"; //hwid_compare.txt , PaymentServer_FileReadHeader
+            webcom.DownloadFile(comparetxt, "hwid_compare.txt");
             Task.Delay(1000);
             Thread.Sleep(1000);
             //download file
@@ -91,81 +90,42 @@ namespace CSNPS
                 Task.Delay(1000);
                 Thread.Sleep(1000);
             }
-               // string[] serverip = File.ReadAllLines("ipban.txt"); //server
-                string[] userhwid = File.ReadAllLines("userhwid.txt"); //client
-                string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //PaymentServer_FileReadHeader
+            // string[] serverip = File.ReadAllLines("ipban.txt"); //server
+            string[] userhwid = File.ReadAllLines("userhwid.txt"); //client
+            string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //PaymentServer_FileReadHeader
 
             foreach (string client in userhwid)
             {
                 foreach (string compare in comparehwid)
                 {
                     /*
-                  foreach (string compare in bannedhwid)
-                {
-                    string hv = "Hyper-V";
-                    string VM = "VMware";
-                    //CheckVM
-                    if (client.Contains(compare))
+                    MessageBox.Show(client);
+                    MessageBox.Show(compare);*/
+                    if (client == compare)
                     {
+                        MainWindow mainWindow1 = new MainWindow();
+                        mainWindow1.Show();
+                        this.Close();
                         File.Delete("hwidban.txt");
-                        hwidtxt.Text = "FailCompare";
-                        MessageBox.Show("你因違反NeverLess遊戲伺服器規則而被管理員hwid封鎖,詳情請參讀NeverLess伺服器規則或在Discord開啟一個ticket並提供你的hwid (位於遊戲文件Bin內的userhwid.txt)", "hwid.exe");
-                        Close();
+                        File.Decrypt("userhwid.txt");
+                        File.Decrypt("clientip.txt");
                         return;
                     }
                     else
                     {
-                        if (client.Contains(hv) || client.Contains(VM))
-                        {
-                            File.Delete("hwidban.txt");
-                            hwidtxt.Text = "detectVMorHyperVnetwork";
-                            MessageBox.Show("hwid.exe已檢測到你已經安裝或你正在運作虛擬機器在你的電腦上,根據NeverLess遊戲伺服器規則內已列明玩家不能使用Hyper-V或VMware的虛擬機器,詳情請參讀NeverLess伺服器規則!", "hwid.exe");
-                            Close();
-                            return;
-                        }
-                        else
-                        {
 
-                        }
-                    }
-                    //this is compare ban list
-                    */
-                    if (client.Contains(compare))
-                    {
-                        string hostname= System.Environment.GetEnvironmentVariable("COMPUTERNAME");
-                        if (hostname.Contains(compare))
-                        {
-                            File.Delete("hwid_compare.txt");
-                        }
-                        else
-                        {
-                            hwidtxt.Text = "user_hwid_or_userhostname_not_compare";
-                            File.Delete("hwid_compare.txt");
-                            MessageBox.Show("由於此伺服器只限 NeverLess VIP/VVIP進入,你的hwid並沒有列入VIP伺服器的hwid上,因此你無法進入. 更多詳情請參考Discord的 'payment-and-donate'獲得更多資訊. 如你已經購買VVIP權限後無法進入伺服器,請在你的ticket上載你的userhwid.txt以及clientip.txt進行hwid註冊", "hwid.exe");
-                            return;
-                            Close();
-                        }
-
-                    }
-                    else
-                    {
-                        hwidtxt.Text = "user_hwid_or_userhostname_not_compare";
-                        MessageBox.Show("由於此伺服器只限 NeverLess VIP/VVIP進入,你的hwid並沒有列入VIP伺服器的hwid上,因此你無法進入. 更多詳情請參考Discord的 'payment-and-donate'獲得更多資訊. 如你已經購買VVIP權限後無法進入伺服器,請在你的ticket上載你的userhwid.txt以及clientip.txt進行hwid註冊", "hwid.exe");
-                        return;
-                        Close();
                     }
                 }
             }
-            //start launcher
-            File.Delete("hwid_compare.txt");
-            File.Delete("userhwid.txt");
-            File.Delete("clientip.txt");
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Hide();
+            File.Delete("hwidban.txt");
+            File.Decrypt("userhwid.txt");
+            File.Decrypt("clientip.txt");
+            MessageBox.Show("由於此伺服器只限 VIP玩家進入遊戲, 你的hwid並沒有列入在VIP伺服器 hwid database之上, 因此你無法進入遊戲, 更多資訊可以到NeverLess Discord的'payment-and-donate'. 如果你是已購買特定的VIP計畫但出現這個視窗,請到NeverLess Discord開啟一個ticket並上載你的userhwid.txt以及clientip.txt進行登記.");
+            Close();
         }
     }
 }
+
 /*
     this.Show();
     //JPN

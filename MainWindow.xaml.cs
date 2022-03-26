@@ -55,7 +55,10 @@ namespace CSNPS
                 {
                     if(File.Exists("CSOLauncher.dll"))
                     {
-                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20222");
+                        File.Delete("hwid_compare.txt");
+                        File.Delete("userhwid.txt");
+                        File.Delete("clientip.txt");
+                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20022");
                         Close();
                     }
                 }
@@ -67,7 +70,10 @@ namespace CSNPS
                     NGS.DownloadFile(ads, file);
                      if (File.Exists("CSOLauncher.dll"))
                     {
-                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20222");
+                        File.Delete("hwid_compare.txt");
+                        File.Delete("userhwid.txt");
+                        File.Delete("clientip.txt");
+                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20022");
                         Close();
                     }
                      else
@@ -76,7 +82,10 @@ namespace CSNPS
                         string Dllfile = "CSOLauncher.dll";
                         string ads2 = "https://cdn.discordapp.com/attachments/816288519496138802/957082655814451230/CSOLauncher.dll";
                         NGS.DownloadFile(ads, file);
-                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20222");
+                        Process.Start("CSOLauncher_Exe.exe", "-ip 26.5.86.41 -port 20022");
+                        File.Delete("hwid_compare.txt");
+                        File.Delete("userhwid.txt");
+                        File.Delete("clientip.txt");
                         Close();
                     }
                 }
@@ -132,7 +141,11 @@ namespace CSNPS
             var result = MessageBox.Show("是否要退出？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
+                File.Delete("hwid_compare.txt");
+                File.Delete("userhwid.txt");
+                File.Delete("clientip.txt");
                 Close();
+
             }
         }
 
