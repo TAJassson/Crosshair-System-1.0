@@ -4,7 +4,7 @@ using System.Windows;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Formats;
+using System.Management;
 
 namespace CSNPS
 {
@@ -13,17 +13,17 @@ namespace CSNPS
     /// </summary>
     public partial class Hwid : Window
     {
-        private readonly object msg;
-
         public Hwid()
         {
             InitializeComponent();
             this.Show();
+            hwidtxt.Text = "";
             if (File.Exists("userhwid.txt"))
             {
+                File.Delete("hwid_compare.txt");
                 File.Delete("hwidban.txt");
-                File.Decrypt("userhwid.txt");
-                File.Decrypt("clientip.txt");
+                File.Delete("userhwid.txt");
+                File.Delete("clientip.txt");
                 Process.Start("hwid.exe");
             }
             MessageBoxResult JPN = MessageBox.Show("啟動器開啟前會先收集你的電腦硬件資訊,請按下'確定''繼續", "hwid.exe", MessageBoxButton.OKCancel); //throw the agreement to user
@@ -36,45 +36,71 @@ namespace CSNPS
             {
                 verify();
             }
-            //FixVitrualRam_Overflow_thorw 0xffff
-            
+            //Fix Virtual Ram Overflow throw 0xffff
+
         }
         private void verify()
         {
-            hwidtxt.Text = "正在讀取hwid資料並進行驗證";
+            hwidtxt.Text = "清除舊有資料";
             if (File.Exists("userhwid.txt"))
             {
-                File.Delete("hwidban.txt");
-                File.Decrypt("userhwid.txt");
-                File.Decrypt("clientip.txt");
+                File.Delete("hwid_compare.txt");
+                File.Delete("userhwid.txt");
+                File.Delete("clientip.txt");
                 Process.Start("hwid.exe");
             }
+            else
+            {
+
+            }
+            hwidtxt.Text = "正在讀取hwid資料並進行驗證";
             //File Check_hwid and updater.exe
             Task.Delay(1500);
             Thread.Sleep(1500);
             //download file
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            /*
             WebClient webcom = new WebClient();
             string comparetxt = "https://drive.google.com/uc?export=download&id=12pCIm5H1pVj8YTCvE23FBkGmBiJUdUsx"; //hwidban.txt, normalserver_filereadheader
             webcom.DownloadFile(comparetxt, "hwidban.txt");
-            /*
+            */
              // 1/4/22 2022Q2 inuse
                   WebClient webcom = new WebClient();
-                string comparetxt = "https://drive.google.com/uc?export=download&id=1eAZgKtbPc4SA69mPm8Ed-wusSGectWZY"; //hwid_compare.txt , PaymentServer_FileReadHeader
+                string comparetxt = "https://drive.google.com/uc?export=download&id=1JP0fB65r0nj1pRXYVp7gf3PtRAzUUttI"; //hwid_compare.txt , PaymentServer_FileReadHeader
                 webcom.DownloadFile(comparetxt, "hwid_compare.txt");
-                */
             Task.Delay(1000);
             Thread.Sleep(1000);
             //download file
-            string[] bannedhwid = File.ReadAllLines("hwidban.txt"); //server
-            //  string[] serverip = File.ReadAllLines("ipban.txt"); //server
-            string[] userhwid = File.ReadAllLines("userhwid.txt"); //client
-            // string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //PaymentServer_FileReadHeader
-            //readfile
+            // string[] bannedhwid = File.ReadAllLines("hwidban.txt"); //server
+            if (File.Exists("userhwid.txt"))
+            {
+                if (File.Exists("hwid_compare.txt"))
+                {
+
+                }
+                else
+                {
+                    hwidtxt.Text = "webliect_error_googledriver_return_403";
+                    MessageBox.Show("你無法連接至Google Drive伺服器或被Google Drive拒絕連線,請等候15分鐘再點擊Launcher再次進入遊戲");
+                    Close();
+                }
+            }
+            else
+            {
+                hwidtxt.Text = "notfound_userhwid_planning_restart_hwid.exe";
+                Task.Delay(1000);
+                Thread.Sleep(1000);
+            }
+               // string[] serverip = File.ReadAllLines("ipban.txt"); //server
+                string[] userhwid = File.ReadAllLines("userhwid.txt"); //client
+                string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //PaymentServer_FileReadHeader
 
             foreach (string client in userhwid)
             {
-                foreach (string compare in bannedhwid)
+                foreach (string compare in comparehwid)
+                {
+                    /*
+                  foreach (string compare in bannedhwid)
                 {
                     string hv = "Hyper-V";
                     string VM = "VMware";
@@ -102,16 +128,41 @@ namespace CSNPS
 
                         }
                     }
+                    //this is compare ban list
+                    */
+                    if (client.Contains(compare))
+                    {
+                        string hostname= System.Environment.GetEnvironmentVariable("COMPUTERNAME");
+                        if (hostname.Contains(compare))
+                        {
+                            File.Delete("hwid_compare.txt");
+                        }
+                        else
+                        {
+                            hwidtxt.Text = "user_hwid_or_userhostname_not_compare";
+                            File.Delete("hwid_compare.txt");
+                            MessageBox.Show("由於此伺服器只限 NeverLess VIP/VVIP進入,你的hwid並沒有列入VIP伺服器的hwid上,因此你無法進入. 更多詳情請參考Discord的 'payment-and-donate'獲得更多資訊. 如你已經購買VVIP權限後無法進入伺服器,請在你的ticket上載你的userhwid.txt以及clientip.txt進行hwid註冊", "hwid.exe");
+                            return;
+                            Close();
+                        }
 
+                    }
+                    else
+                    {
+                        hwidtxt.Text = "user_hwid_or_userhostname_not_compare";
+                        MessageBox.Show("由於此伺服器只限 NeverLess VIP/VVIP進入,你的hwid並沒有列入VIP伺服器的hwid上,因此你無法進入. 更多詳情請參考Discord的 'payment-and-donate'獲得更多資訊. 如你已經購買VVIP權限後無法進入伺服器,請在你的ticket上載你的userhwid.txt以及clientip.txt進行hwid註冊", "hwid.exe");
+                        return;
+                        Close();
+                    }
                 }
             }
             //start launcher
+            File.Delete("hwid_compare.txt");
+            File.Delete("userhwid.txt");
+            File.Delete("clientip.txt");
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Hide();
-            File.Delete("hwidban.txt");
-            File.Decrypt("userhwid.txt");
-            File.Decrypt("clientip.txt");
         }
     }
 }

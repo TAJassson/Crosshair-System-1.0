@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows7.0</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.17763.0</TargetFramework>
     <UseWPF>True</UseWPF>
     <AssemblyName>CSNPSLauncher</AssemblyName>
     <RootNamespace>CSCPSLauncher</RootNamespace>
@@ -17,37 +17,31 @@
     <ApplicationIcon>cso.ico</ApplicationIcon>
     <AnalysisLevel>5.0</AnalysisLevel>
     <PackageReleaseNotes>5.0</PackageReleaseNotes>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="1280px-Valve_logo.svg.png" />
     <None Remove="128_20211006020331.jpg" />
     <None Remove="128_20211103012701.jpg" />
     <None Remove="2013.png" />
     <None Remove="2022_0128_2_1440x900.jpg" />
     <None Remove="backgroud.png" />
     <None Remove="background.png" />
-    <None Remove="bisecthosting.png" />
-    <None Remove="bk.jpg" />
     <None Remove="button1.png" />
     <None Remove="button2.png" />
-    <None Remove="csnps.png" />
     <None Remove="csns.png" />
     <None Remove="csns2.png" />
     <None Remove="csns_jpn.png" />
     <None Remove="CSS.png" />
-    <None Remove="dc.png" />
     <None Remove="deSource.png" />
     <None Remove="exitgame.png" />
     <None Remove="exitgame_tw.png" />
-    <None Remove="fb.png" />
     <None Remove="gamestart.png" />
     <None Remove="hwid_backgroud.png" />
     <None Remove="maxresdefault.jpg" />
     <None Remove="nClassic.png" />
     <None Remove="NerverLess_JPN_write.png" />
     <None Remove="NerverLess_write.png" />
-    <None Remove="nexon-quality.gif" />
     <None Remove="paypal.png" />
     <None Remove="Q1NZ8lW.png" />
     <None Remove="sgp2012.png" />
@@ -66,24 +60,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="1280px-Valve_logo.svg.png" />
     <Resource Include="128_20211006020331.jpg" />
     <Resource Include="128_20211103012701.jpg" />
     <Resource Include="2013.png" />
     <Resource Include="2022_0128_2_1440x900.jpg" />
-    <Resource Include="bisecthosting.png" />
-    <Resource Include="bk.jpg" />
-    <Resource Include="csnps.png" />
     <Resource Include="csns.png" />
     <Resource Include="csns2.png" />
     <Resource Include="csns_jpn.png" />
-    <Resource Include="dc.png" />
     <Resource Include="exitgame.png" />
     <Resource Include="exitgame_tw.png" />
-    <Resource Include="fb.png" />
     <Resource Include="hwid_backgroud.png" />
     <Resource Include="maxresdefault.jpg" />
-    <Resource Include="nexon-quality.gif" />
     <Resource Include="startgame.png" />
     <Resource Include="startgame_tw.png" />
     <Resource Include="unknown (5).png" />

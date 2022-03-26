@@ -30,6 +30,6 @@
         <Image x:Name="exitgame" Height="80" Margin="542,422,256,0" VerticalAlignment="Top" Source="/exitgame_tw.png" MouseLeftButtonDown="ExitLauncher"/>
         <Image HorizontalAlignment="Left" Height="78" Margin="256,422,0,0" VerticalAlignment="Top" Width="148" Source="/startgame_tw.png" MouseDown="startgame"/>
         <TextBlock x:Name="vermsg" HorizontalAlignment="Left" Margin="0,483,0,0" TextWrapping="Wrap" Text="MSG_GameVersion" VerticalAlignment="Top" Height="17" Width="222" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="105" VerticalAlignment="Top" Width="327" Source="/csns.png" MouseDown="startgame"/>
+        <Image HorizontalAlignment="Left" Height="93" VerticalAlignment="Top" Width="355" Source="/csns2.png" MouseDown="startgame"/>
     </Grid>
 </Window>
