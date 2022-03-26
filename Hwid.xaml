@@ -16,7 +16,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/hwid_backgroud.png"/>
         </Grid.Background>
-        <TextBlock x:Name="msg" HorizontalAlignment="Center" Margin="0,141,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="430" Height="19" Foreground="White" FontSize="11"/>
+        <TextBlock x:Name="hwidtxt" HorizontalAlignment="Center" Margin="0,141,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="420" Height="19" Foreground="White" FontSize="11"/>
 
     </Grid>
 </Window>

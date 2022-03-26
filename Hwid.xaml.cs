@@ -4,6 +4,7 @@ using System.Windows;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Formats;
 
 namespace CSNPS
 {
@@ -12,10 +13,11 @@ namespace CSNPS
     /// </summary>
     public partial class Hwid : Window
     {
+        private readonly object msg;
+
         public Hwid()
         {
             InitializeComponent();
-            msg.Text = "正在讀取hwid資料並進行驗證";
             this.Show();
             if (File.Exists("userhwid.txt"))
             {
@@ -35,9 +37,11 @@ namespace CSNPS
                 verify();
             }
             //FixVitrualRam_Overflow_thorw 0xffff
+            
         }
         private void verify()
         {
+            hwidtxt.Text = "正在讀取hwid資料並進行驗證";
             if (File.Exists("userhwid.txt"))
             {
                 File.Delete("hwidban.txt");
@@ -72,33 +76,14 @@ namespace CSNPS
             {
                 foreach (string compare in bannedhwid)
                 {
-                    /*   foreach (string payment in comparehwid)
-                       {
-                           if (client.Contains(payment)
-                            {
-
-                            }
-                            else
-                             {
-                                        MessageBox.Show("因NeverLess營運資金短缺,由4月1日起,NeverLess伺服器會向玩家收取 300元台幣 / 84元港幣 作為伺服器營運資金,玩家需要到Discord或點擊這個視窗進行付款,完成付款後請到提問區開啟一張ticket並上載你的userhwid.txt,clientip.txt並等待NeverLess管理員加入你的hwid資料後,即可再次進入伺服器", "hwid.exe"); //payment server msg
-                                        Process.Start(new ProcessStartInfo
-                                         {
-                                                    FileName = "https://trade.i7391.com/GoodsDetail_S08-220326-0035256167.shtml",
-                                                     UseShellExecute = true
-                                         });
-                                        return;
-                                        Close();
-                             }
-                       }
-                    */
                     string hv = "Hyper-V";
                     string VM = "VMware";
                     //CheckVM
                     if (client.Contains(compare))
                     {
-                        msg.Text = "FailCompare";
-                        MessageBox.Show("你因違反NeverLess遊戲伺服器規則而被管理員hwid封鎖,詳情請參讀NeverLess伺服器規則或在Discord開啟一個ticket並提供你的hwid (位於遊戲文件Bin內的userhwid.txt)", "hwid.exe");
                         File.Delete("hwidban.txt");
+                        hwidtxt.Text = "FailCompare";
+                        MessageBox.Show("你因違反NeverLess遊戲伺服器規則而被管理員hwid封鎖,詳情請參讀NeverLess伺服器規則或在Discord開啟一個ticket並提供你的hwid (位於遊戲文件Bin內的userhwid.txt)", "hwid.exe");
                         Close();
                         return;
                     }
@@ -106,7 +91,8 @@ namespace CSNPS
                     {
                         if (client.Contains(hv) || client.Contains(VM))
                         {
-                            msg.Text = "detectVMorHyperVnetwork";
+                            File.Delete("hwidban.txt");
+                            hwidtxt.Text = "detectVMorHyperVnetwork";
                             MessageBox.Show("hwid.exe已檢測到你已經安裝或你正在運作虛擬機器在你的電腦上,根據NeverLess遊戲伺服器規則內已列明玩家不能使用Hyper-V或VMware的虛擬機器,詳情請參讀NeverLess伺服器規則!", "hwid.exe");
                             Close();
                             return;
@@ -128,8 +114,6 @@ namespace CSNPS
             File.Decrypt("clientip.txt");
         }
     }
-
-
 }
 /*
     this.Show();
@@ -226,5 +210,22 @@ Task.Delay(1000);
             File.Decrypt("clientip.txt");
         }
     }
+                    /*   foreach (string payment in comparehwid)
+                       {
+                           if (client.Contains(payment)
+                            {
 
-*/
+                            }
+                            else
+                             {
+                                        MessageBox.Show("因NeverLess營運資金短缺,由4月1日起,NeverLess伺服器會向玩家收取 300元台幣 / 84元港幣 作為伺服器營運資金,玩家需要到Discord或點擊這個視窗進行付款,完成付款後請到提問區開啟一張ticket並上載你的userhwid.txt,clientip.txt並等待NeverLess管理員加入你的hwid資料後,即可再次進入伺服器", "hwid.exe"); //payment server msg
+                                        Process.Start(new ProcessStartInfo
+                                         {
+                                                    FileName = "https://trade.i7391.com/GoodsDetail_S08-220326-0035256167.shtml",
+                                                     UseShellExecute = true
+                                         });
+                                        return;
+                                        Close();
+                             }
+                       }
+                    */
