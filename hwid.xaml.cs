@@ -16,7 +16,14 @@ namespace CSNPS
         {
             InitializeComponent();
             this.Show();
-            //JPN
+            if (File.Exists("hwidban.txt"))
+            {
+                File.Delete("hwidban.txt");
+                File.Delete("sg14version.txt");
+                File.Delete("hwid_compare.txt");
+                File.Delete("userhwid.txt");
+            }
+            msg.Text = "Listening.....";
             MessageBoxResult JPN = MessageBox.Show("啟動器開啟前會先收集你的電腦硬件資訊,請按下'確定''繼續", "hwid.exe", MessageBoxButton.OKCancel); //throw the agreement to user
             if (JPN == MessageBoxResult.Cancel)
             {
@@ -25,21 +32,26 @@ namespace CSNPS
             }
             else
             {
+                verify();
+            }
+        }
+        private void verify()
+        {
+            hwidtxt.Text = "清除舊有資料";
+            if (File.Exists("userhwid.txt"))
+            {
+                File.Delete("hwid_compare.txt");
+                File.Delete("userhwid.txt");
+                File.Delete("clientip.txt");
+            }
+            else
+            {
 
             }
-            if (File.Exists("hwidban.txt"))
-            {
-                File.Delete("hwidban.txt");
-                File.Delete("sg14version.txt");
-                File.Delete("hwid_compare.txt");
-                File.Delete("userhwid.txt"); 
-            }
-            //JPN
-            //File Check_hwid and updater.exe
             Process.Start("hwid.exe");
             msg.Text = "正在讀取hwid資料並進行驗證";
-            Task.Delay(2500);
-            Thread.Sleep(2500);
+            Task.Delay(1500);
+            Thread.Sleep(1500);
             //fuckyoucheckusers
             //download file
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -57,7 +69,6 @@ namespace CSNPS
             */
             //download file
             string[] bannedhwid = File.ReadAllLines("hwidban.txt"); //server
-            //  string[] serverip = File.ReadAllLines("ipban.txt"); //server
             string[] userhwid = File.ReadAllLines("userhwid.txt"); //client
             // string[] comparehwid = File.ReadAllLines("hwid_compare.txt"); //PaymentServer_FileReadHeader
             Task.Delay(1000);
@@ -67,8 +78,8 @@ namespace CSNPS
             {
                 foreach (string compare in bannedhwid)
                 {
-                        string hv = "Hyper-V";
-                        string VM = "VMware";
+                    string hv = "Hyper-V";
+                    string VM = "VMware";
                     if (client.Contains(compare))
                     {
                         msg.Text = "FailCompare";
@@ -96,29 +107,28 @@ namespace CSNPS
 
                         }
                     }
-                    }
                 }
-            
-                Task.Delay(1000);
-                Thread.Sleep(1000);
-                 if (File.Exists("version.txt"))
-                  {
+            }
+            Task.Delay(100);
+            Thread.Sleep(100);
+            if (File.Exists("version.txt"))
+            {
 
-                  }
-                        else
-                        {
-                            MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-                            Process.Start("Updater.exe");
-                            Close();
-                        }
-                        if (File.Exists("pingscan.exe"))
-                        {
-                            Process.Start("pingscan.exe");
-                        }
-                        else
-                        {
-                            string[] clientv = File.ReadAllLines("version.txt");
-                            string[] sv = File.ReadAllLines("sg14version.txt");
+            }
+            else
+            {
+                MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
+                Process.Start("Updater.exe");
+                Close();
+            }
+            if (File.Exists("pingscan.exe"))
+            {
+                Process.Start("pingscan.exe");
+            }
+            else
+            {
+                string[] clientv = File.ReadAllLines("version.txt");
+                string[] sv = File.ReadAllLines("sg14version.txt");
                 foreach (string cv in clientv)
                 {
                     foreach (string serverv in sv)
@@ -145,73 +155,6 @@ namespace CSNPS
                 }
             }
         }
-        }
-    }
-
-/*
-else
-{
-   if (client == hv || client == VM)
-    {
-        msg.Text = "FailCompare";
-        MessageBox.Show("hwid.exe因檢測到你的虛擬機器在運行,詳情請參讀NeverLess伺服器規則或在Discord開啟一個ticket並提供你的hwid (位於遊戲文件Bin內的userhwid.txt)", "hwid.exe");
-        File.Delete("hwid_compare.txt"); //hwid_compare.txt
-        File.Delete("hwidban.txt");
-        File.Delete("sg14version.txt");
-        Close();
-    }
-    else
-    {
-        Task.Delay(1000);
-        Thread.Sleep(1000);
-        if (File.Exists("version.txt"))
-        {
-            MessageBox.Show("FileExists_version.txt");
-        }
-        else
-        {
-            MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-            Process.Start("Updater.exe");
-            Close();
-        }
-        if (File.Exists("pingscan.exe"))
-        {
-            MessageBox.Show("伺服器訊息: 因伺服器檢測到你的異常行為並需要進行區域網掃瞄,請按下'OK'來進行pingscan.*區域網掃瞄需時3-4分鐘,期間CPU或可能提高使用量並切勿關閉pingscan畫面* ", "NL_ServerRequest_Networkscan_hwid.exe", MessageBoxButton.OK);
-            Process.Start("pingscan.exe");
-        }
-        string[] clientv = File.ReadAllLines("version.txt");
-        string[] sv = File.ReadAllLines("sg14version.txt");
-        foreach (string cv in clientv)
-        {
-            foreach (string serverv in sv)
-            {
-                if (cv == serverv)
-                {
-                    msg.Text = $"你的遊戲版本是 v.'{cv}', 最新版本為 v.'{serverv}'.可以開始遊戲";
-                    MainWindow launcherwindow = new MainWindow();
-                    launcherwindow.Show();
-                    this.Close();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Update_request");
-                    MessageBox.Show("即將更新client,切勿關閉Update的CMD視窗並等到完成更新. 請按下 確定' 進行更新!", "Updater.exe");
-                    msg.Text = "即將更新client,切勿關閉Update的CMD視窗並等到完成更新";
-                    Process.Start("Updater.exe");
-                    File.Delete("userhwid.txt");
-                    File.Delete("ipban.txt");
-                    File.Delete("hwidban.txt");
-                    Close();
-                }
-            }
-        }
     }
 }
-}
-}
-}
-}
-}
-*/
-
+ 
